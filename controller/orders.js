@@ -1,4 +1,3 @@
-const path = require("path");
 const orderModel = require("../model/Order");
 
 exports.createOrder = async(req, res) => {
@@ -29,7 +28,6 @@ exports.updateOrder = async(req, res) => {
 exports.getOrderByOrderId = async (req, res) => {
     try{
         const order = await orderModel.findOne({order_id: req.query.order_id});
-        console.log(order);
         if(!order){
             res.status(404).json({ success: false, error: "order not found"});
         }
@@ -43,7 +41,6 @@ exports.getOrdersByDate = async (req, res) => {
     const date = new Date(req.query.date).toISOString();
     try {
         const list = await orderModel.find({ order_date: date});
-        console.log(list)
         if(list.length == 0){
             res.status(404).json({ success: false, error: "orders not found"});
         }
@@ -57,7 +54,6 @@ exports.getOrdersByDate = async (req, res) => {
 exports.deleteOrderByOrderId = async (req, res) => {
     try {
         const order = await orderModel.findOne({order_id: req.query.order_id});
-        console.log(order);
         if(!order){
             res.status(404).json({ success: false, error: "order not found"});
         }
